@@ -7,8 +7,9 @@ namespace MyFirstApi.Controllers;
 public class UserController : ControllerBase
 {
     [HttpGet]
-    public IActionResult UserName()
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public IActionResult UserName(string name)
     {
-        return Ok("Tralalelo tralala");
+        return Ok(name);
     }
 }
