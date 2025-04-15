@@ -7,9 +7,17 @@ namespace MyFirstApi.Controllers;
 public class UserController : ControllerBase
 {
     [HttpGet]
+    [Route("{id}/email/{email}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public IActionResult UserName(string name)
+    public IActionResult UserName(int id, string email)
     {
-        return Ok(name);
+        var response = new User
+        {
+            Id = id,
+            Name = "Daniel",
+            Email = email
+        };
+
+        return Ok(response);
     }
 }
