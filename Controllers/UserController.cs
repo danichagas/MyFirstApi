@@ -10,28 +10,38 @@ public class UserController : ControllerBase
 {
     [HttpPost]
     [ProducesResponseType(typeof(ResponseRegisterUserJson), StatusCodes.Status201Created)]
-    public IActionResult CreateUser([FromBody] RequestRegisterUserJson request)
+    public IActionResult CreateUser([FromBody] RequestRegisterUserJson userJson)
     {
         var response = new ResponseRegisterUserJson
         {
             Id = 1,
-            Name = request.Name
+            Name = userJson.Name
         };
         return Created(string.Empty, response);
     }
 
     [HttpGet]
-    [Route("{id}/email/{email}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    public IActionResult GetUser(int id, string email)
+    [Route("{id}")]
+    [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
+    public IActionResult GetUser(User user)
     {
         var response = new User
         {
-            Id = id,
-            Name = "Daniel",
-            Email = email
+            Id = user.Id,
+            Name = user.Name,
+            Email = user.Email
         };
 
         return Ok(response);
+    }
+
+    [HttpPut]
+    [Route("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public IActionResult UpdateUser(
+        [FromRoute] int id,
+        [FromBody] RequestUpdateUserProfileJson profileJson)
+    {
+        return NoContent();
     }
 }
