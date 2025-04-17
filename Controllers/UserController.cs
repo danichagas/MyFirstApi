@@ -20,10 +20,18 @@ public class UserController : ControllerBase
         return Created(string.Empty, response);
     }
 
+
+    [HttpPut]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public IActionResult UpdateUser([FromBody] RequestUpdateUserProfileJson profileJson)
+    {
+        return NoContent();
+    }
+
     [HttpGet]
     [Route("{id}")]
     [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
-    public IActionResult GetUser(User user)
+    public IActionResult GetById(User user)
     {
         var response = new User
         {
@@ -35,11 +43,17 @@ public class UserController : ControllerBase
         return Ok(response);
     }
 
-    [HttpPut]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public IActionResult UpdateUser([FromBody] RequestUpdateUserProfileJson profileJson)
+    [HttpGet]
+    [ProducesResponseType(typeof (List<User>), StatusCodes.Status200OK)]
+    public IActionResult GetAll()
     {
-        return NoContent();
+        var response = new List<User>
+        {
+            new User { Id = 1, Email = "marcelly@gmail.com", Name = "Marcelly"},
+            new User { Id = 2, Email = "daniel@gmail.com", Name = "Daniel"}
+        };
+
+        return Ok(response);
     }
 
     [HttpDelete]
@@ -48,4 +62,12 @@ public class UserController : ControllerBase
     {
         return NoContent();
     }
+
+    [HttpPut("change-password")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public IActionResult ChangePassword([FromBody] RequestChangePasswordJson passwordJson)
+    {
+        return NoContent();
+    }
+
 }
