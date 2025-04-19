@@ -4,7 +4,7 @@ using MyFirstApi.Entities;
 namespace MyFirstApi.Controllers;
 public class DeviceController : MyFirstApiBaseController
 {
-    [HttpGet]
+    [HttpGet("myRoute")]
     public IActionResult Get()
     {
         var laptop = new Laptop();
